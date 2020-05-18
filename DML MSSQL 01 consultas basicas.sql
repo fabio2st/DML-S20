@@ -19,12 +19,6 @@ select valor1 = 5000 * .2, valor2 = 5000 * 20 / 100
 SELECT nivel_cargo, nivel_cargo * 2
 FROM empleados
 
--- alias de columnas
-SELECT cargo_id as cargo,
-	nivel_cargo nivel,
-    doble_cargo = nivel_cargo * 2
-FROM empleados
-
 -- todas las filas y todas las columnas de autores
 select *
 from autores
@@ -38,9 +32,16 @@ Por cada venta mostrar almacen, orden,
 fecha, id de titulo, titulo, 
 cantidad, precio y total
 */
+SELECT almacen_id, numero_orden, fecha_orden,
+	ventas.titulo_id, titulo, cantidad, precio,
+    total = cantidad * precio
+FROM ventas, titulos
+WHERE ventas.titulo_id = titulos.titulo_id
+
+-- incluyendo el nombre del almacen
 SELECT almacen_nombre, numero_orden, fecha_orden,
 	ventas.titulo_id, titulo, cantidad, precio,
     total = cantidad * precio
 FROM ventas, titulos, almacenes
-where ventas.titulo_id = titulos.titulo_id
+WHERE ventas.titulo_id = titulos.titulo_id
 	and ventas.almacen_id = almacenes.almacen_id
